@@ -27,6 +27,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:mimamch/wa-gateway.git"
-  }
+  },
   "packageManager": "pnpm@9.2.0"
 }
