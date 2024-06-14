@@ -8,6 +8,29 @@ const path = require("path");
 const MainRouter = require("./app/routers");
 const errorHandlerMiddleware = require("./app/middlewares/error_middleware");
 const whatsapp = require("wa-multi-session");
+const cron = require("node-cron");
+const { format } = require("date-fns");
+const { formatInTimeZone } = require("date-fns-tz");
+const db = require("./db/db");
+
+cron.schedule("* * * * * *", async () => {
+    const data = db.get("schedules");
+    if (data) {
+      data.forEach(async(dt) => {
+        const date = new Date();
+        const dateNow = formatInTimeZone(date,"Asia/Jakarta","yyy-MM-dd HH:mm:ss");
+        const dateData = dt.date + " " + dt.time;
+        console.log(dateNow)
+        console.log(dateData)
+        if (dateData == dateNow) {
+          const send = await whatsapp.sendTextMessage({
+            sessionId: dt.session,
+            to: dt.to,
+            text: dt.text,
+          });
+        }
+    })
+}});
 
 config();
 

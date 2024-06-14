@@ -1,6 +1,7 @@
 const whatsapp = require("wa-multi-session");
 const ValidationError = require("../../utils/error");
 const { responseSuccessWithData } = require("../../utils/response");
+const db = require("../../db/db");
 
 exports.sendMessage = async (req, res, next) => {
   try {
@@ -70,3 +71,37 @@ exports.sendBulkMessage = async (req, res, next) => {
     next(error);
   }
 };
+
+
+exports.setSchedule = async (req, res, next) => {
+  try{
+    const { session, time, date, to, text } = req.body;
+    if (!session || !time || !date || !to || !text) {
+      return res.status(400).json({
+        status: false,
+        data: {
+          error: "Missing Parameters",
+        },
+      });
+    }
+    const schedule = {
+      session,
+      time,
+      date,
+      to,
+      text,
+    };
+    const schedules = db.get("schedules") || [];
+    schedules.push(schedule);
+    db.set("schedules", schedules);
+    res.status(200).json({
+      status: true,
+      data: {
+        message: "Schedule Created",
+      },
+    });
+  }
+  catch (error) {
+    next(error);
+  }
+}

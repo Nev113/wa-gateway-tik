@@ -1,0 +1,11 @@
+{
+    "schedules": [
+        {
+            "session": "client1",
+            "time": "23:05:00",
+            "date": "2024-06-14",
+            "to": "6283817146590",
+            "text": "Test Schedule"
+        }
+    ]
+}
