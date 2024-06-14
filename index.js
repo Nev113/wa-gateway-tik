@@ -20,8 +20,6 @@ cron.schedule("* * * * * *", async () => {
         const date = new Date();
         const dateNow = formatInTimeZone(date,"Asia/Jakarta","yyy-MM-dd HH:mm:ss");
         const dateData = dt.date + " " + dt.time;
-        console.log(dateNow)
-        console.log(dateData)
         if (dateData == dateNow) {
           const send = await whatsapp.sendTextMessage({
             sessionId: dt.session,
