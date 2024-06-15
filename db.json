@@ -7,5 +7,17 @@
             "to": "6283817146590",
             "text": "Test Schedule"
         }
-    ]
+    ],
+    "gempa": {
+        "tanggal": "15 Jun 2024",
+        "jam": "22:31:03 WIB",
+        "lintang": "4.89 LS",
+        "bujur": "103.02 BT",
+        "magnitude": "4.8",
+        "kedalaman": "30 km",
+        "wilayah": "Pusat gempa berada di laut 38 km barat daya Kaur",
+        "potensi": "Gempa ini dirasakan untuk diteruskan pada masyarakat",
+        "shakemap": "20240615223103.mmi.jpg",
+        "ready": true
+    }
 }

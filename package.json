@@ -24,6 +24,7 @@
     "http-errors": "~1.6.3",
     "moment": "^2.29.4",
     "morgan": "~1.9.1",
+    "nanoid": "^5.0.7",
     "node-cron": "^3.0.3",
     "qrcode": "^1.5.1",
     "simple-json-db": "^2.0.0",

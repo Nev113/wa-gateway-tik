@@ -12,9 +12,51 @@ const cron = require("node-cron");
 const { format } = require("date-fns");
 const { formatInTimeZone } = require("date-fns-tz");
 const db = require("./db/db");
+const { default: axios } = require("axios");
+const { sendMessage } = require("./app/controllers/message_controller");
 
 cron.schedule("* * * * * *", async () => {
     const data = db.get("schedules");
+    await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json")
+    .then((res) => {
+      const dget = db.get("gempa");
+      if (dget.jam == res.data.Infogempa.gempa.Jam) return;
+      const data = res.data.Infogempa.gempa;
+      const dataGempa = {
+        tanggal: data.Tanggal,
+        jam: data.Jam,
+        lintang: data.Lintang,
+        bujur: data.Bujur,
+        magnitude: data.Magnitude,
+        kedalaman: data.Kedalaman,
+        wilayah: data.Wilayah,
+        potensi: data.Potensi,
+        shakemap: data.Shakemap,
+        ready: false
+      };
+      db.set("gempa", dataGempa);
+    })
+    let dataGempa = db.get("gempa");
+    if (dataGempa) {
+          dataGempa = db.get("gempa");
+        if (dataGempa.ready == false) {
+          console.log("sendingg")
+          whatsapp.sendTextMessage({
+            sessionId: "client1",
+            to: "6283806211924",
+            text: "Gempa ngentooooooooot tangi bangsaaat \ntanggal: " + dataGempa.tanggal + "\nJam: " + dataGempa.jam + "\nSher lok 1: " + dataGempa.lintang + "\nsher lok 2: " + dataGempa.bujur + "\nGeyal Geyol: " + dataGempa.magnitude + "\nDaleeeem: " + dataGempa.kedalaman + "\nWilayah: " + dataGempa.wilayah + "/Umahe Ira" + "\nPotensi: " + dataGempa.potensi + "/ tsunami (Rongokna bolor e)" + "\n tobatlah kawan sesungguhnya orang yang tobat adalah orang yang bertaubat #StopJajanSembarangan",
+          });
+          whatsapp.sendImage({
+            sessionId: "client1",
+            to: "6283806211924",
+            text: new Date().toString(),
+            media: "https://data.bmkg.go.id/DataMKG/TEWS/"+dataGempa.shakemap,
+          });
+          db.delete("gempa");
+          db.set("gempa", {...dataGempa, ready: true});
+          console.log(db.get("gempa"))
+        }
+    }
     if (data) {
       data.forEach(async(dt) => {
         const date = new Date();

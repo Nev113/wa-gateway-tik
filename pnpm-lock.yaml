@@ -44,6 +44,9 @@ importers:
       morgan:
         specifier: ~1.9.1
         version: 1.9.1
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.0.7
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -581,6 +584,11 @@ packages:
   music-metadata@7.13.4:
     resolution: {integrity: sha512-eRRoEMhhYdth2Ws24FmkvIqrtkIBE9sqjHbrRNpkg2Iux3zc37PQKRv2/r/mTtELb7XlB1uWC2UcKKX7BzNMGA==}
     engines: {node: '>=10'}
+
+  nanoid@5.0.7:
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
 
   negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
@@ -1445,6 +1453,8 @@ snapshots:
       token-types: 4.2.1
     transitivePeerDependencies:
       - supports-color
+
+  nanoid@5.0.7: {}
 
   negotiator@0.6.3: {}
 
